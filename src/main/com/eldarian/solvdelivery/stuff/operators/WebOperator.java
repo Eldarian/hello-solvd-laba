@@ -1,7 +1,13 @@
 package com.eldarian.solvdelivery.stuff.operators;
 
+import com.eldarian.solvdelivery.stuff.Manager;
+
 public class WebOperator extends Operator{
-    @Override
+
+    public WebOperator(Manager manager) {
+        super();
+    }
+                       @Override
     public void getRequest(int requestId) {
 
     }

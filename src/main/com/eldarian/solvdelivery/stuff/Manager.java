@@ -25,4 +25,20 @@ public class Manager extends Employee {
     public void getRequest(int requestId) {
         System.out.printf("Got request with id %d", requestId);
     }
+
+    public List<Courier> getCouriers() {
+        return couriers;
+    }
+
+    public List<Operator> getOperators() {
+        return operators;
+    }
+
+    public void addOperator(Operator operator) {
+        operators.add(operator);
+    }
+
+    public void addCourier(Courier courier) {
+        couriers.add(courier);
+    }
 }
