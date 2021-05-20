@@ -9,7 +9,12 @@ public class PhoneOperator extends Operator {
     }
 
     @Override
-    public void getRequest(int requestId) {
-        manager.getRequest(requestId);
+    public void getRequest(String message) {
+        System.out.println(message);
+    }
+
+    @Override
+    public void sendRequest(String message) {
+        manager.getRequest(message);
     }
 }

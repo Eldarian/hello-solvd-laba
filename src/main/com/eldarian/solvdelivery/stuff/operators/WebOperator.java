@@ -8,7 +8,7 @@ public class WebOperator extends Operator{
         super();
     }
                        @Override
-    public void getRequest(int requestId) {
+    public void getRequest(String message) {
 
     }
 }

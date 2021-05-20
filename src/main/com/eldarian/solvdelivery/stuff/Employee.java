@@ -11,7 +11,9 @@ public abstract class Employee {
 		this.name = "<noname>";
 	}
 	
-	public abstract void getRequest(int requestId);
+	public abstract void getRequest(String message);
+
+	public abstract void sendRequest(String message);
 	
 	private int generateId() {
 		return ++lastId;

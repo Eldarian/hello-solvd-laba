@@ -22,8 +22,13 @@ public class Manager extends Employee {
     }
 
     @Override
-    public void getRequest(int requestId) {
+    public void getRequest(String message) {
         System.out.printf("Got request with id %d", requestId);
+    }
+
+    @Override
+    public void sendRequest(String message) {
+
     }
 
     public List<Courier> getCouriers() {

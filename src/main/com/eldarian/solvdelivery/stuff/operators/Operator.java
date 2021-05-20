@@ -10,6 +10,7 @@ public abstract class Operator extends Employee {
     protected Manager manager;
 
     public Operator(Manager manager) {
+        super();
         this.manager = manager;
     }
 
