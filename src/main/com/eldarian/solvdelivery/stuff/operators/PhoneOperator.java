@@ -1,4 +1,6 @@
-package com.eldarian.solvdelivery.stuff;
+package com.eldarian.solvdelivery.stuff.operators;
+
+import com.eldarian.solvdelivery.stuff.Manager;
 
 public class PhoneOperator extends Operator {
 

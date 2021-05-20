@@ -1,5 +1,8 @@
 package com.eldarian.solvdelivery.stuff;
 
+import com.eldarian.solvdelivery.stuff.couriers.Courier;
+import com.eldarian.solvdelivery.stuff.operators.Operator;
+
 import java.util.ArrayList;
 import java.util.List;
 

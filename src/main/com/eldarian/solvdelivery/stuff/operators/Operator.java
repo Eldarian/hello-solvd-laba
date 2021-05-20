@@ -1,4 +1,7 @@
-package com.eldarian.solvdelivery.stuff;
+package com.eldarian.solvdelivery.stuff.operators;
+
+import com.eldarian.solvdelivery.stuff.Employee;
+import com.eldarian.solvdelivery.stuff.Manager;
 
 import java.util.ArrayList;
 import java.util.List;
