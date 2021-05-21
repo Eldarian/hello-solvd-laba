@@ -4,7 +4,7 @@ import com.eldarian.solvdelivery.Order;
 import com.eldarian.solvdelivery.stuff.couriers.Courier;
 import com.eldarian.solvdelivery.stuff.operators.Operator;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Manager extends Employee {
@@ -14,8 +14,8 @@ public class Manager extends Employee {
     private Order currentOrder;
 
     public Manager() {
-        this.couriers = new ArrayList<>();
-        this.operators = new ArrayList<>();
+        this.couriers = new LinkedList<>();
+        this.operators = new LinkedList<>();
     }
 
     public Manager(List couriers, List operators) {
