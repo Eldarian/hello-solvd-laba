@@ -1,5 +1,6 @@
 package com.eldarian.solvdelivery.stuff.operators;
 
+import com.eldarian.solvdelivery.Order;
 import com.eldarian.solvdelivery.stuff.Manager;
 
 public class PhoneOperator extends Operator {
@@ -8,13 +9,34 @@ public class PhoneOperator extends Operator {
         super(manager);
     }
 
+
     @Override
-    public void getRequest(String message) {
-        System.out.println(message);
+    public void setAddress(String address) {
+
     }
 
     @Override
-    public void sendRequest(String message) {
-        manager.getRequest(message);
+    public void setRestaurant(int id) {
+
+    }
+
+    @Override
+    public String getRestaurants() {
+        return null;
+    }
+
+    @Override
+    public void setDish(int id) {
+
+    }
+
+    @Override
+    public boolean confirmOrder(boolean isClientAgreed) {
+        return false;
+    }
+
+    public boolean handleOrder(Order order) {
+        return true; //TODO add logic
     }
 }
+
