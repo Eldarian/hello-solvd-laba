@@ -1,5 +1,7 @@
 package com.eldarian.solvdelivery.stuff;
 
+import com.eldarian.solvdelivery.Order;
+
 public abstract class Employee {
 	private int id;
 	private String name;
@@ -10,10 +12,8 @@ public abstract class Employee {
 		this.id = generateId();
 		this.name = "<noname>";
 	}
-	
-	public abstract void getRequest(String message);
 
-	public abstract void sendRequest(String message);
+	public abstract boolean handleOrder(Order order);
 	
 	private int generateId() {
 		return ++lastId;

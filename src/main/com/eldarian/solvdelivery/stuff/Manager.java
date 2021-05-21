@@ -1,5 +1,6 @@
 package com.eldarian.solvdelivery.stuff;
 
+import com.eldarian.solvdelivery.Order;
 import com.eldarian.solvdelivery.stuff.couriers.Courier;
 import com.eldarian.solvdelivery.stuff.operators.Operator;
 
@@ -9,6 +10,8 @@ import java.util.List;
 public class Manager extends Employee {
     private List<Courier> couriers;
     private List<Operator> operators;
+    private boolean isFree = true;
+    private Order currentOrder;
 
     public Manager() {
         this.couriers = new ArrayList<>();
@@ -16,19 +19,19 @@ public class Manager extends Employee {
     }
 
     public Manager(List couriers, List operators) {
-        this();
         this.couriers = couriers;
         this.operators = operators;
     }
 
-    @Override
-    public void getRequest(String message) {
-        System.out.printf("Got request with id %d", requestId);
-    }
 
     @Override
-    public void sendRequest(String message) {
-
+    public boolean handleOrder(Order order) {
+        if(isFree) {
+            currentOrder = order;
+            isFree = false;
+            return true;
+        }
+        return false;
     }
 
     public List<Courier> getCouriers() {
