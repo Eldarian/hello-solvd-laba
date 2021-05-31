@@ -1,4 +1,4 @@
-package com.eldarian.solvdelivery.stuff.couriers;
+package com.eldarian.solvdelivery.staff.delivery;
 
 public class AutoCourier extends Courier{
     public AutoCourier() {

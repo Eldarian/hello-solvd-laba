@@ -1,7 +1,7 @@
-package com.eldarian.solvdelivery.stuff.operators;
+package com.eldarian.solvdelivery.staff.contact;
 
 import com.eldarian.solvdelivery.Order;
-import com.eldarian.solvdelivery.stuff.Manager;
+import com.eldarian.solvdelivery.staff.Manager;
 
 public class PhoneOperator extends Operator {
 
@@ -37,6 +37,11 @@ public class PhoneOperator extends Operator {
 
     public boolean handleOrder(Order order) {
         return true; //TODO add logic
+    }
+
+    @Override
+    public void handleClientData(String data) {
+        //TODO register clients phone number
     }
 }
 

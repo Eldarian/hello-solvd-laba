@@ -1,8 +1,10 @@
-package com.eldarian.solvdelivery.stuff;
+package com.eldarian.solvdelivery.staff;
 
 import com.eldarian.solvdelivery.Order;
-import com.eldarian.solvdelivery.stuff.couriers.Courier;
-import com.eldarian.solvdelivery.stuff.operators.Operator;
+import com.eldarian.solvdelivery.staff.delivery.Courier;
+import com.eldarian.solvdelivery.staff.contact.Operator;
+import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
+import com.eldarian.solvdelivery.staff.contact.WebOperator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class Manager extends Employee {
             return true;
         }
         return false;
+        System.out.println();
     }
 
     public List<Courier> getCouriers() {
@@ -48,5 +51,13 @@ public class Manager extends Employee {
 
     public void addCourier(Courier courier) {
         couriers.add(courier);
+    }
+
+    public Operator getWebOperator() {
+        return new WebOperator(this); //TODO find WebOperator in list
+    }
+
+    public Operator getPhoneOperator() {
+        return new PhoneOperator(this); //TODO find PhoneOperator in list
     }
 }

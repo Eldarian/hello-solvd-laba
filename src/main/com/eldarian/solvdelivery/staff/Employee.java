@@ -1,4 +1,4 @@
-package com.eldarian.solvdelivery.stuff;
+package com.eldarian.solvdelivery.staff;
 
 import com.eldarian.solvdelivery.Order;
 
