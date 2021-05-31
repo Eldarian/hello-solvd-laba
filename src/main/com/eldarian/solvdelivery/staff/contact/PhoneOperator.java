@@ -16,12 +16,12 @@ public class PhoneOperator extends Operator {
     }
 
     @Override
-    public void handleRestaurant(int id) {
-
-    }
-
-    public String getRestaurants() {
-        return null;
+    public void handleRestaurant(String restaurant) {
+        if(restaurant.matches("\\d+")) {
+            findRestaurant(Integer.parseInt(restaurant));
+        } else {
+            findRestaurant(restaurant);
+        }
     }
 
     @Override

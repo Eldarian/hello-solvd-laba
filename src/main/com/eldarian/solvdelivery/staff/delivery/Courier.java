@@ -17,6 +17,7 @@ public abstract class Courier extends Employee {
 		if(isFree) {
 			this.order = order;
 			isFree = false;
+			deliverOrder(order);
 			return true;
 		}
 		return false;
