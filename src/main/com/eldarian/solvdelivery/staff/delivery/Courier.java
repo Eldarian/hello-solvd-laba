@@ -21,4 +21,6 @@ public abstract class Courier extends Employee {
 		}
 		return false;
 	}
+
+	public abstract void deliverOrder(Order order);
 }
