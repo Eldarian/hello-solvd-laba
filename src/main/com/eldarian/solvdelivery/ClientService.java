@@ -1,13 +1,11 @@
 package com.eldarian.solvdelivery;
 
 public interface ClientService {
-    void setAddress(String address);
+    void handleAddress(String address);
 
-    void setRestaurant(int id);
+    void handleRestaurant(int id);
 
-    String getRestaurants();
-
-    void setDish(int id);
+    void handleDish(int id);
 
     boolean confirmOrder(boolean isClientAgreed);
 }

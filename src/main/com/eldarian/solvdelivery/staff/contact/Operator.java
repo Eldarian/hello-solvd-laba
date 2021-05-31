@@ -34,22 +34,21 @@ public abstract class Operator extends Employee implements ClientService {
     }
 
     @Override
-    public void setAddress(String address) {
+    public void handleAddress(String address) {
 
     }
 
     @Override
-    public void setRestaurant(int id) {
+    public void handleRestaurant(int id) {
 
     }
 
-    @Override
     public String getRestaurants() {
         return null;
     }
 
     @Override
-    public void setDish(int id) {
+    public void handleDish(int id) {
 
     }
 
