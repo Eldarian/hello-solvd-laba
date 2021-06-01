@@ -1,7 +1,7 @@
-package com.eldarian.solvdelivery.stuff.operators;
+package com.eldarian.solvdelivery.staff.contact;
 
 import com.eldarian.solvdelivery.Order;
-import com.eldarian.solvdelivery.stuff.Manager;
+import com.eldarian.solvdelivery.staff.Manager;
 
 public class WebOperator extends Operator{
 
@@ -13,4 +13,8 @@ public class WebOperator extends Operator{
         return true; //TODO add logic
     }
 
+    @Override
+    public void handleClientData(String data) {
+        //TODO register user
+    }
 }

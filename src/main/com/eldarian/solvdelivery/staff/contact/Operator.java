@@ -1,11 +1,12 @@
-package com.eldarian.solvdelivery.stuff.operators;
+package com.eldarian.solvdelivery.staff.contact;
 
 import com.eldarian.solvdelivery.ClientService;
 import com.eldarian.solvdelivery.Order;
-import com.eldarian.solvdelivery.stuff.Employee;
-import com.eldarian.solvdelivery.stuff.Manager;
+import com.eldarian.solvdelivery.Restaurant;
+import com.eldarian.solvdelivery.staff.Employee;
+import com.eldarian.solvdelivery.staff.Manager;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Operator extends Employee implements ClientService {
@@ -19,7 +20,7 @@ public abstract class Operator extends Employee implements ClientService {
     }
 
     public Operator() {
-        List<Operator> operators = new ArrayList<Operator>();
+        List<Operator> operators = new LinkedList<Operator>();
         operators.add(this);
         this.manager = new Manager(null, operators);
     }
@@ -34,22 +35,27 @@ public abstract class Operator extends Employee implements ClientService {
     }
 
     @Override
-    public void setAddress(String address) {
+    public void handleAddress(String address) {
 
     }
 
     @Override
-    public void setRestaurant(int id) {
+    public void handleRestaurant(String restaurant) {
 
     }
 
-    @Override
-    public String getRestaurants() {
-        return null;
+    protected Restaurant findRestaurant(int id) {
+        //TODO find restaurant in list by id
+        return new Restaurant(id);
+    }
+
+    protected Restaurant findRestaurant(String name) {
+        //TODO find restaurant in list by name
+        return new Restaurant(name);
     }
 
     @Override
-    public void setDish(int id) {
+    public void handleDish(int id) {
 
     }
 
@@ -57,4 +63,6 @@ public abstract class Operator extends Employee implements ClientService {
     public boolean confirmOrder(boolean isClientAgreed) {
         return false;
     }
+
+    public abstract void handleClientData(String data);
 }

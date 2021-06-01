@@ -1,15 +1,14 @@
 package com.eldarian.solvdelivery;
 
-import com.eldarian.solvdelivery.stuff.Manager;
-import com.eldarian.solvdelivery.stuff.couriers.AutoCourier;
-import com.eldarian.solvdelivery.stuff.couriers.FootCourier;
-import com.eldarian.solvdelivery.stuff.operators.PhoneOperator;
-import com.eldarian.solvdelivery.stuff.operators.WebOperator;
+import com.eldarian.solvdelivery.staff.Manager;
+import com.eldarian.solvdelivery.staff.delivery.AutoCourier;
+import com.eldarian.solvdelivery.staff.delivery.FootCourier;
+import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
+import com.eldarian.solvdelivery.staff.contact.WebOperator;
 
 public class Executor {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Manager manager = new Manager();
 		manager.addCourier(new FootCourier());
 		manager.addCourier(new AutoCourier());
