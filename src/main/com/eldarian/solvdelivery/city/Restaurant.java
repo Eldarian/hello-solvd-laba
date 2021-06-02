@@ -1,4 +1,4 @@
-package com.eldarian.solvdelivery;
+package com.eldarian.solvdelivery.city;
 
 public class Restaurant {
     int id;

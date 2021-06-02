@@ -8,5 +8,5 @@ public interface ClientService {
 
     void handleDish(int id);
 
-    boolean confirmOrder(boolean isClientAgreed);
+    boolean confirmOrder(String isClientAgreed);
 }
