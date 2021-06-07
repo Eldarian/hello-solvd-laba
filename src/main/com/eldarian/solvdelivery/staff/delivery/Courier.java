@@ -24,4 +24,12 @@ public abstract class Courier extends Employee {
 	}
 
 	public abstract void deliverOrder(Order order);
+
+	@Override
+	public String toString() {
+		return "Courier{" +
+				"order=" + order +
+				", isFree=" + isFree +
+				'}';
+	}
 }

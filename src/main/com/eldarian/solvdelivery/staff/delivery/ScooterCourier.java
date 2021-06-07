@@ -8,4 +8,9 @@ public class ScooterCourier extends AutoCourier {
     public void deliverOrder(Order order) {
         System.out.println("Delivered by " + getName() + " by scooter");
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", scooter";
+    }
 }

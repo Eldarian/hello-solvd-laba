@@ -1,21 +1,13 @@
 package com.eldarian.solvdelivery.city;
 
-public class Restaurant {
-    int id;
-    String name;
+public class Restaurant extends Building {
+    private int id;
+    private String name;
 
-    public Restaurant(int id) {
-        this.id = id; //non-sense, TODO remove
-    }
-
-    public Restaurant(String name) {
+    public Restaurant(Street street, int buildingNumber, String name) {
+        super(street, buildingNumber);
         this.name = name;
     }
-
-    public Restaurant() {
-
-    }
-
 
 
     public int getId() {
@@ -24,5 +16,15 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "streetName=" + getStreet().getName() +
+                ", buildingNumber=" + getBuildingNumber() +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

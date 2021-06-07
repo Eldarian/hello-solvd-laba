@@ -8,6 +8,7 @@ public abstract class Employee {
 
 	
 	private static int lastId = 0;
+
 	public Employee() {
 		this.id = generateId();
 		this.name = "<noname>";
@@ -30,5 +31,12 @@ public abstract class Employee {
 	public int getId() {
 		return id;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Employee{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

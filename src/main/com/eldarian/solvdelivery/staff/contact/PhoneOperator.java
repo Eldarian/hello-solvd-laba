@@ -17,11 +17,7 @@ public class PhoneOperator extends Operator {
 
     @Override
     public void handleRestaurant(String restaurant) {
-        if(restaurant.matches("\\d+")) {
-            findRestaurant(Integer.parseInt(restaurant));
-        } else {
-            findRestaurant(restaurant);
-        }
+        findRestaurant(restaurant);
     }
 
     @Override
@@ -30,7 +26,7 @@ public class PhoneOperator extends Operator {
     }
 
     @Override
-    public boolean confirmOrder(boolean isClientAgreed) {
+    public boolean confirmOrder(String isClientAgreed) {
         return false;
     }
 
@@ -41,6 +37,16 @@ public class PhoneOperator extends Operator {
     @Override
     public void handleClientData(String data) {
         //TODO register clients phone number
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneOperator{" + "id=" + getId() +
+                ", name='" + getName() +
+                "manager=" + getManager() +
+                ", isFree=" + isFree() +
+                ", order=" + getOrder() +
+                '}';
     }
 }
 

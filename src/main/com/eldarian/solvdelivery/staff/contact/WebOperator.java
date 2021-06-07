@@ -17,4 +17,13 @@ public class WebOperator extends Operator{
     public void handleClientData(String data) {
         //TODO register user
     }
+
+    public String toString() {
+        return "WebOperator{" + "id=" + getId() +
+                ", name='" + getName() +
+                "manager=" + getManager() +
+                ", isFree=" + isFree() +
+                ", order=" + getOrder() +
+                '}';
+    }
 }

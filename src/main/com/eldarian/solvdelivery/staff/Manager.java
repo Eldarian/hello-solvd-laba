@@ -34,7 +34,6 @@ public class Manager extends Employee {
             return true;
         }
         return false;
-        System.out.println();
     }
 
     public List<Courier> getCouriers() {
@@ -59,5 +58,13 @@ public class Manager extends Employee {
 
     public Operator getPhoneOperator() {
         return new PhoneOperator(this); //TODO find PhoneOperator in list
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                '}';
     }
 }

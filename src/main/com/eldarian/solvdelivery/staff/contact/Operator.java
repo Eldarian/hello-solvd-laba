@@ -2,7 +2,7 @@ package com.eldarian.solvdelivery.staff.contact;
 
 import com.eldarian.solvdelivery.ClientService;
 import com.eldarian.solvdelivery.Order;
-import com.eldarian.solvdelivery.Restaurant;
+import com.eldarian.solvdelivery.city.Restaurant;
 import com.eldarian.solvdelivery.staff.Employee;
 import com.eldarian.solvdelivery.staff.Manager;
 
@@ -10,7 +10,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Operator extends Employee implements ClientService {
-    protected Manager manager;
+    private Manager manager;    //PENDING private with getters for child classes or protected
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
     private boolean isFree;
     private Order order;
 
@@ -44,14 +57,15 @@ public abstract class Operator extends Employee implements ClientService {
 
     }
 
-    protected Restaurant findRestaurant(int id) {
-        //TODO find restaurant in list by id
-        return new Restaurant(id);
-    }
 
-    protected Restaurant findRestaurant(String name) {
-        //TODO find restaurant in list by name
-        return new Restaurant(name);
+    @Override
+    public String toString() { //PENDING Does this make any sense?
+        return "Operator{" + "id=" + getId() +
+                ", name='" + getName() +
+                "manager=" + manager +
+                ", isFree=" + isFree +
+                ", order=" + order +
+                '}';
     }
 
     @Override
@@ -60,9 +74,14 @@ public abstract class Operator extends Employee implements ClientService {
     }
 
     @Override
-    public boolean confirmOrder(boolean isClientAgreed) {
+    public boolean confirmOrder(String isClientAgreed) {
         return false;
     }
 
     public abstract void handleClientData(String data);
+
+    public Restaurant findRestaurant(String name) {
+        return null; //TODO find restaurant by name and return it
+    }
 }
+

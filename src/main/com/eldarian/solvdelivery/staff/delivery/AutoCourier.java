@@ -13,4 +13,13 @@ public class AutoCourier extends Courier {
     public void deliverOrder(Order order) {
         System.out.println("Delivered by " + getName() + " by auto");
     }
+
+    @Override
+    public String toString() {
+        return "AutoCourier{" +
+                "carName='" + carName + '\'' +
+                ", order=" + order +
+                ", isFree=" + isFree +
+                '}';
+    }
 }
