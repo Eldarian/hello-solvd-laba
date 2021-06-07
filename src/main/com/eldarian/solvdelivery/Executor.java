@@ -14,7 +14,8 @@ public class Executor {
 		manager.addCourier(new AutoCourier());
 		manager.addOperator(new PhoneOperator(manager));
 		manager.addOperator(new WebOperator(manager));
-		
+		Client client = new Client(manager);
+		client.makeOrder();
 	}
 
 }

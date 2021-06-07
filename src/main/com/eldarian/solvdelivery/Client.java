@@ -6,13 +6,19 @@ import com.eldarian.solvdelivery.staff.contact.Operator;
 import java.util.Scanner;
 
 public class Client {
-    Manager manager = new Manager();
-    void makeOrder() {
-        //TODO make scanner more correct
+    Manager manager;
 
+    public Client(Manager manager) {
+        this.manager = manager;
+    }
+
+    public Client() {
+        this.manager = new Manager();
+    }
+    void makeOrder() {
         Operator operator = null;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to DeliereD! [p]hone or [w]eb?");
+        System.out.println("Welcome to DelivereD! [p]hone or [w]eb?");
         do {
             String line = scanner.nextLine();
             switch (line) {
