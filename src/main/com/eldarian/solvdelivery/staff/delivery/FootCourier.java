@@ -8,4 +8,9 @@ public class FootCourier extends Courier {
     public void deliverOrder(Order order) {
         System.out.println("Delivered by " + getName() + " by foot");
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", foot";
+    }
 }

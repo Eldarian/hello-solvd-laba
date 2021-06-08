@@ -12,8 +12,6 @@ import java.util.List;
 public class Manager extends Employee {
     private List<Courier> couriers;
     private List<Operator> operators;
-    private boolean isFree = true;
-    private Order currentOrder;
 
     public Manager() {
         this.couriers = new LinkedList<>();
@@ -28,13 +26,13 @@ public class Manager extends Employee {
 
     @Override
     public boolean handleOrder(Order order) {
-        if(isFree) {
-            currentOrder = order;
-            isFree = false;
-            return true;
+        for(Courier courier : couriers) {
+            if(courier.isFree()) {
+                courier.handleOrder(order);
+                return true;
+            }
         }
         return false;
-        System.out.println();
     }
 
     public List<Courier> getCouriers() {
@@ -59,5 +57,13 @@ public class Manager extends Employee {
 
     public Operator getPhoneOperator() {
         return new PhoneOperator(this); //TODO find PhoneOperator in list
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                '}';
     }
 }

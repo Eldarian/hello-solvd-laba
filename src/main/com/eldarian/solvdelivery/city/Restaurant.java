@@ -1,0 +1,46 @@
+package com.eldarian.solvdelivery.city;
+
+import com.eldarian.solvdelivery.Dish;
+import com.eldarian.solvdelivery.services.RestaurantService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Restaurant extends Building implements RestaurantService {
+    private String name;
+    private List<Dish> menu;
+
+    public Restaurant(Street street, int buildingNumber, String name) {
+        super(street, buildingNumber);
+        this.name = name;
+        menu = new ArrayList<>();
+    }
+
+    public List<Dish> getMenu() {
+        return menu;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "streetName=" + getStreet().getName() +
+                ", buildingNumber=" + getBuildingNumber() +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public Dish findDish(String name) {
+        for (Dish dish:
+             menu) {
+            if(dish.getName().equals(name)) {
+                return dish;
+            }
+        }
+        return null;
+    }
+}
