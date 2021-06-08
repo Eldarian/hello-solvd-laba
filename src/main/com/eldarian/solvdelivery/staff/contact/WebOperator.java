@@ -22,7 +22,6 @@ public class WebOperator extends Operator{
         return "WebOperator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + getManager() +
-                ", isFree=" + isFree() +
                 ", order=" + getOrder() +
                 '}';
     }

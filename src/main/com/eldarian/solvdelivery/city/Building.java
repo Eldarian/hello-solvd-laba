@@ -11,6 +11,7 @@ public class Building {
     public Building(Street street, int buildingNumber) {
         this.street = street;
         this.buildingNumber = buildingNumber;
+        //street.setBuilding(this, buildingNumber);
     }
 
     public int getBuildingNumber() {

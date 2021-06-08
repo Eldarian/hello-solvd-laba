@@ -9,27 +9,6 @@ public class PhoneOperator extends Operator {
         super(manager);
     }
 
-
-    @Override
-    public void handleAddress(String address) {
-
-    }
-
-    @Override
-    public void handleRestaurant(String restaurant) {
-        findRestaurant(restaurant);
-    }
-
-    @Override
-    public void handleDish(int id) {
-
-    }
-
-    @Override
-    public boolean confirmOrder(String isClientAgreed) {
-        return false;
-    }
-
     public boolean handleOrder(Order order) {
         return true; //TODO add logic
     }
@@ -44,7 +23,6 @@ public class PhoneOperator extends Operator {
         return "PhoneOperator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + getManager() +
-                ", isFree=" + isFree() +
                 ", order=" + getOrder() +
                 '}';
     }

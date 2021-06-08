@@ -1,11 +1,12 @@
 package com.eldarian.solvdelivery.city;
 
 import com.eldarian.solvdelivery.Dish;
+import com.eldarian.solvdelivery.services.RestaurantService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant extends Building {
+public class Restaurant extends Building implements RestaurantService {
     private String name;
     private List<Dish> menu;
 
@@ -30,5 +31,16 @@ public class Restaurant extends Building {
                 ", buildingNumber=" + getBuildingNumber() +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public Dish findDish(String name) {
+        for (Dish dish:
+             menu) {
+            if(dish.getName().equals(name)) {
+                return dish;
+            }
+        }
+        return null;
     }
 }

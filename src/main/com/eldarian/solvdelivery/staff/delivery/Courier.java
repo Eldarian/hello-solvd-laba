@@ -6,7 +6,12 @@ import com.eldarian.solvdelivery.staff.Employee;
 public abstract class Courier extends Employee {
 
 	Order order;
-	boolean isFree = true;
+	private boolean isFree = true;
+
+	public boolean isFree() {
+		return isFree;
+	}
+
 	public Courier() {
 		super();
 	}

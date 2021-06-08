@@ -19,6 +19,21 @@ public class Street {
         return name;
     }
 
+    public List<Building> getBuildings() {
+        return buildings;
+    }
+
+    public Building getBuilding(int buildingNumber) {
+        if(buildingNumber - 1 > buildings.size()) {
+            return buildings.get(buildingNumber - 1);
+        }
+        return null;
+    }
+
+    public void setBuilding(Building building, int number) {
+        buildings.set(number - 1, building);
+    }
+
     @Override
     public String toString() {
         return "Street{" +

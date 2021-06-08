@@ -19,7 +19,7 @@ public class AutoCourier extends Courier {
         return "AutoCourier{" +
                 "carName='" + carName + '\'' +
                 ", order=" + order +
-                ", isFree=" + isFree +
+                ", isFree=" + isFree() +
                 '}';
     }
 }
