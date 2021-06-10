@@ -11,7 +11,7 @@ public class Building {
     public Building(Street street, int buildingNumber) {
         this.street = street;
         this.buildingNumber = buildingNumber;
-        //street.setBuilding(this, buildingNumber);
+        System.out.println("Init building on " + street + ", " + buildingNumber);
     }
 
     public int getBuildingNumber() {

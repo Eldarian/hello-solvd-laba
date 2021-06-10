@@ -1,16 +1,12 @@
 package com.eldarian.solvdelivery.staff.contact;
 
-import com.eldarian.solvdelivery.Order;
+import com.eldarian.solvdelivery.ordering.Order;
 import com.eldarian.solvdelivery.staff.Manager;
 
 public class WebOperator extends Operator{
 
     public WebOperator(Manager manager) {
-        super();
-    }
-
-    public boolean handleOrder(Order order) {
-        return true; //TODO add logic
+        super(manager);
     }
 
     @Override
@@ -22,7 +18,6 @@ public class WebOperator extends Operator{
         return "WebOperator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + getManager() +
-                ", order=" + getOrder() +
                 '}';
     }
 }

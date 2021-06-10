@@ -1,8 +1,9 @@
-package com.eldarian.solvdelivery;
+package com.eldarian.solvdelivery.data;
 
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
 import com.eldarian.solvdelivery.city.Street;
+import com.eldarian.solvdelivery.ordering.Dish;
 import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.Manager;
 import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
@@ -23,6 +24,7 @@ public class Database implements CityService {
         initStaff();
     }
 
+    //hardcoded method with data
     private void initStaff() {
         managers = new ArrayList<>();
         Manager manager = new Manager(this);
@@ -70,8 +72,7 @@ public class Database implements CityService {
     @Override
     public Restaurant findRestaurant(String name) {
         for(Restaurant restaurant: restaurants) {
-
-            if(restaurant.getName().equals(name)) return restaurant; //TODO check for errors
+            if(restaurant.getName().equals(name)) return restaurant;
         }
         return null;
     }
@@ -86,15 +87,20 @@ public class Database implements CityService {
         return streets.get(name);
     }
 
+    @Override
+    public Restaurant findRestaurant(int id) {
+        return restaurants.get(id);
+    }
+
     public Manager getManager() {
-        return managers.get(0); //TODO replace to search of free manager
+        return managers.get(0); //TODO replace to search of free manager or make single-manager system
     }
 
     @Override
     public List<String> getRestaurantNames() {
         List<String> list = new ArrayList<>();
         for (Restaurant restaurant: restaurants) {
-            list.add(restaurant.getName());
+            list.add(restaurants.indexOf(restaurant) + ": " + restaurant.getName());
         }
         return list;
     }
