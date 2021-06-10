@@ -74,19 +74,26 @@ public abstract class Operator extends Employee {
 
     public Order generateOrder() {
         Order order = new Order();
-
-        Restaurant restaurant = chooseRestaurant(order);
-        chooseDish(order, restaurant);
+        Restaurant restaurant;
+        int attempt = 0;
+        do {
+            restaurant = chooseRestaurant(order);
+            attempt++;
+        } while (restaurant == null && attempt < 10);
+        chooseDish(order, restaurant, 0);
         chooseDestination(order);
-
         return order;
     }
 
-    private void chooseDish(Order order, Restaurant restaurant) {
+    private void chooseDish(Order order, Restaurant restaurant, int attempt) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose your dish:");
         restaurant.printMenu();
         Dish dish = restaurant.findDish(scanner.nextLine());
+        if(dish == null && attempt < 3) {
+            System.out.println("Wrong input, try again");
+            chooseDish(order, restaurant, ++attempt);
+        }
         order.setDish(dish);
     }
 
