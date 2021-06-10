@@ -55,15 +55,18 @@ public class Client {
         Order order = new Order();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose cafe, type its name or building number:");
+        System.out.println("Choose cafe, type its name:");
+        operator.printRestaurants();
         Restaurant restaurant = operator.findRestaurant(scanner.nextLine()); //TODO NULL-check
         order.setRestaurant(restaurant);
 
         System.out.println("Choose your dish:");
+        restaurant.printMenu();
         Dish dish = restaurant.findDish(scanner.nextLine());
         order.setDish(dish);
 
         System.out.println("Enter your address (Street name):");
+        operator.printStreetNames();
         Street street = operator.findStreet(scanner.nextLine());
 
         System.out.println("Enter your address (Building number):");
