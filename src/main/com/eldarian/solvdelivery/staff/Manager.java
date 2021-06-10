@@ -9,6 +9,7 @@ import com.eldarian.solvdelivery.staff.contact.WebOperator;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Manager extends Employee {
     private List<Courier> couriers;
@@ -77,5 +78,44 @@ public class Manager extends Employee {
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 '}';
+    }
+
+    public Operator contactOperator() {
+        System.out.println("Welcome to DelivereD! [p]hone or [w]eb?");
+        Scanner scanner = new Scanner(System.in);
+        Operator operator = null;
+        int attempt = 0;
+
+        do {
+            String line = scanner.nextLine();
+            switch (line) {
+                case "phone":
+                case "p":
+                    operator = getPhoneOperator();
+                    if(operator == null) {
+                        System.out.println("There is no available phone operator or there is error");
+                        break;
+                    }
+                    System.out.println("Called Phone Operator " + operator.getName());
+                    break;
+                case "web":
+                case "w":
+                    operator = getWebOperator();
+                    if(operator == null) {
+                        System.out.println("There is no available phone operator or there is error");
+                        break;
+                    }
+                    System.out.println("Called Web Operator " + operator.getName());
+                    break;
+                default:
+                    System.out.println("Incorrect type, try again. [p]hone or [w]eb?");
+                    break;
+            }
+            attempt++;
+        } while (operator == null && attempt < 10);
+        if(attempt >= 10) {
+            System.out.println("Error: too many attempts");
+        }
+        return operator;
     }
 }

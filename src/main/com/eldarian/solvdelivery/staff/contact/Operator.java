@@ -1,5 +1,6 @@
 package com.eldarian.solvdelivery.staff.contact;
 
+import com.eldarian.solvdelivery.ordering.Dish;
 import com.eldarian.solvdelivery.ordering.Order;
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
@@ -8,25 +9,17 @@ import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.Employee;
 import com.eldarian.solvdelivery.staff.Manager;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Scanner;
 
 public abstract class Operator extends Employee {
-    private Manager manager;    //QUESTION private with getters for child classes or protected
+    private Manager manager;
     private CityService cityService;
-    private Order order;
 
     public Operator(Manager manager) {
         super();
         this.manager = manager;
         manager.addOperator(this);
         cityService = manager.getCityService();
-    }
-
-    public Operator() {  //TODO remove
-        List<Operator> operators = new LinkedList<Operator>();
-        operators.add(this);
-        this.manager = new Manager(null, operators);
     }
 
     public abstract void handleClientData(String data);
@@ -45,22 +38,21 @@ public abstract class Operator extends Employee {
         return "Operator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + manager +
-                ", order=" + order +
                 '}';
     }
 
-    public Restaurant findRestaurant(String string) {
+    private Restaurant findRestaurant(String string) {
         if(string.matches("\\d+")) {
             return cityService.findRestaurant(Integer.parseInt(string));
         }
         return cityService.findRestaurant(string);
     }
 
-    public Building findBuilding(Street street, int number) {
+    private Building findBuilding(Street street, int number) {
         return cityService.findBuilding(street, number);
     }
 
-    public Street findStreet(String name) {
+    private Street findStreet(String name) {
         return cityService.findStreet(name);
     }
 
@@ -68,20 +60,88 @@ public abstract class Operator extends Employee {
         return manager;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void printRestaurants() {
+    private void printRestaurants() {
         for (String restaurantName : cityService.getRestaurantNames()) {
             System.out.println(restaurantName);
         }
     }
 
-    public void printStreetNames() {
+    private void printStreetNames() {
         for (String streetName : cityService.getStreetNames()) {
             System.out.println(streetName);
         }
+    }
+
+    public Order generateOrder() {
+        Order order = new Order();
+
+        Restaurant restaurant = chooseRestaurant(order);
+        chooseDish(order, restaurant);
+        chooseDestination(order);
+
+        return order;
+    }
+
+    private void chooseDish(Order order, Restaurant restaurant) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose your dish:");
+        restaurant.printMenu();
+        Dish dish = restaurant.findDish(scanner.nextLine());
+        order.setDish(dish);
+    }
+
+    private Restaurant chooseRestaurant(Order order) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose cafe, type its name or id:");
+        printRestaurants();
+        Restaurant restaurant = findRestaurant(scanner.nextLine()); //TODO NULL-check
+        order.setRestaurant(restaurant);
+        return restaurant;
+    }
+
+    private void chooseDestination(Order order) {
+        Street street = chooseStreet();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your address (Building number):");
+        Building destination = findBuilding(street, scanner.nextInt());
+        order.setDestination(destination);
+    }
+
+    private Street chooseStreet() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your address (Street name):");
+        printStreetNames();
+        Street street = findStreet(scanner.nextLine());
+        return street;
+    }
+
+    public void confirmOrder(Order order) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Confirm your order, [y]es or [n]o: " + order);
+        boolean isCorrect = false;
+        do {
+            String line = scanner.nextLine();
+            switch (line) {
+                case "yes":
+                case "y":
+                    if(handleOrder(order)) {
+                        System.out.println("Thanks for ordering!");
+                    } else {
+                        System.out.println("Your order is incorrect.");
+                    }
+                    isCorrect = true;
+                    break;
+                case "no":
+                case "n":
+                    System.out.println("Try again!");
+                    isCorrect = true;
+                    break;
+                default:
+                    System.out.println("Incorrect type, try again.");
+                    break;
+            }
+
+        } while (!isCorrect);
     }
 }
 

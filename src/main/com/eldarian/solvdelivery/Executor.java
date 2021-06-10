@@ -10,9 +10,9 @@ public class Executor {
 	public static void main(String[] args) {
 		Database db = new Database();
 		Manager manager = db.getManager();
-		Client client = new Client(manager);
+		Client client = new Client();
 
-		client.sendOrder();
+		client.sendOrder(manager);
 	}
 
 }

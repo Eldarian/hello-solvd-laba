@@ -18,7 +18,6 @@ public class PhoneOperator extends Operator {
         return "PhoneOperator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + getManager() +
-                ", order=" + getOrder() +
                 '}';
     }
 }
