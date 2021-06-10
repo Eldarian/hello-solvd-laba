@@ -1,6 +1,6 @@
 package com.eldarian.solvdelivery.staff.contact;
 
-import com.eldarian.solvdelivery.Order;
+import com.eldarian.solvdelivery.ordering.Order;
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
 import com.eldarian.solvdelivery.city.Street;
@@ -13,23 +13,14 @@ import java.util.List;
 
 public abstract class Operator extends Employee {
     private Manager manager;    //QUESTION private with getters for child classes or protected
-
     private CityService cityService;
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
     private Order order;
 
     public Operator(Manager manager) {
         super();
         this.manager = manager;
         manager.addOperator(this);
+        cityService = manager.getCityService();
     }
 
     public Operator() {
@@ -38,22 +29,25 @@ public abstract class Operator extends Employee {
         this.manager = new Manager(null, operators);
     }
 
+    public abstract void handleClientData(String data);
+
     @Override
     public boolean handleOrder(Order order) {
-        return manager.handleOrder(order);
+        if(order.isValid()) {
+            return manager.handleOrder(order);
+        }
+        return false;
     }
 
 
     @Override
-    public String toString() { //QUESTION Does this make any sense for abstract class?
+    public String toString() {
         return "Operator{" + "id=" + getId() +
                 ", name='" + getName() +
                 "manager=" + manager +
                 ", order=" + order +
                 '}';
     }
-
-    public abstract void handleClientData(String data);
 
     public Restaurant findRestaurant(String name) {
         return cityService.findRestaurant(name);
@@ -65,6 +59,26 @@ public abstract class Operator extends Employee {
 
     public Street findStreet(String name) {
         return cityService.findStreet(name);
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void printRestaurants() {
+        for (String restaurantName : cityService.getRestaurantNames()) {
+            System.out.println(restaurantName);
+        }
+    }
+
+    public void printStreetNames() {
+        for (String streetName : cityService.getStreetNames()) {
+            System.out.println(streetName);
+        }
     }
 }
 

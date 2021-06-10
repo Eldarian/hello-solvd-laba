@@ -1,4 +1,4 @@
-package com.eldarian.solvdelivery;
+package com.eldarian.solvdelivery.ordering;
 
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
@@ -28,5 +28,9 @@ public class Order {
 
 	public void setDestination(Building destination) {
 		this.destination = destination;
+	}
+
+	public boolean isValid() {
+		return restaurant != null && dish != null && destination != null;
 	}
 }

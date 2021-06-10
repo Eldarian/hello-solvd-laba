@@ -1,6 +1,6 @@
 package com.eldarian.solvdelivery.staff.delivery;
 
-import com.eldarian.solvdelivery.Order;
+import com.eldarian.solvdelivery.ordering.Order;
 
 public class AutoCourier extends Courier {
     String carName;

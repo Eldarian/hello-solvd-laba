@@ -1,4 +1,4 @@
-package com.eldarian.solvdelivery;
+package com.eldarian.solvdelivery.ordering;
 
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
@@ -19,7 +19,7 @@ public class Client {
         this.manager = new Manager();
     }
 
-    void sendOrder() {
+    public void sendOrder() {
         Operator operator = contactOperator();
         Order order = generateOrder(operator);
         confirmOrder(operator, order);

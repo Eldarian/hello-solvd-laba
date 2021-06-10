@@ -1,6 +1,7 @@
 package com.eldarian.solvdelivery.staff;
 
-import com.eldarian.solvdelivery.Order;
+import com.eldarian.solvdelivery.ordering.Order;
+import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.delivery.Courier;
 import com.eldarian.solvdelivery.staff.contact.Operator;
 import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
@@ -12,10 +13,17 @@ import java.util.List;
 public class Manager extends Employee {
     private List<Courier> couriers;
     private List<Operator> operators;
+    CityService cityService;
 
     public Manager() {
         this.couriers = new LinkedList<>();
         this.operators = new LinkedList<>();
+    }
+
+    public Manager(CityService cityService) {
+        this.couriers = new LinkedList<>();
+        this.operators = new LinkedList<>();
+        this.cityService = cityService;
     }
 
     public Manager(List couriers, List operators) {
@@ -57,6 +65,10 @@ public class Manager extends Employee {
 
     public Operator getPhoneOperator() {
         return new PhoneOperator(this); //TODO find PhoneOperator in list
+    }
+
+    public CityService getCityService() {
+        return cityService;
     }
 
     @Override

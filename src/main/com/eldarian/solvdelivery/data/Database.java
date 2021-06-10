@@ -1,8 +1,9 @@
-package com.eldarian.solvdelivery;
+package com.eldarian.solvdelivery.data;
 
 import com.eldarian.solvdelivery.city.Building;
 import com.eldarian.solvdelivery.city.Restaurant;
 import com.eldarian.solvdelivery.city.Street;
+import com.eldarian.solvdelivery.ordering.Dish;
 import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.Manager;
 import com.eldarian.solvdelivery.staff.contact.PhoneOperator;

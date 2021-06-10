@@ -10,7 +10,7 @@ public class Street {
     public Street(String name, int buildingCount) {
         this.name = name;
         buildings = new ArrayList<>();
-        for (int i = 0; i < buildingCount; i++) {
+        for (int i = 1; i <= buildingCount; i++) {
             buildings.add(new Building(this, i));
         }
     }
@@ -23,8 +23,12 @@ public class Street {
         return buildings;
     }
 
+    public int getBuildingCount() {
+        return buildings.size();
+    }
+
     public Building getBuilding(int buildingNumber) {
-        if(buildingNumber - 1 > buildings.size()) {
+        if(buildingNumber <= buildings.size() && buildingNumber > 0) {
             return buildings.get(buildingNumber - 1);
         }
         return null;
