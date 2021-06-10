@@ -12,11 +12,10 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order{" +
-				"id=" + id +
-				", restaurant=" + restaurant +
-				", dish=" + dish +
-				'}';
+		return "\nid=" + id +
+				", \nrestaurant=" + restaurant +
+				", \ndish=" + dish +
+				", \ndeliver to " + destination;
 	}
 
     public void setRestaurant(Restaurant restaurant) {

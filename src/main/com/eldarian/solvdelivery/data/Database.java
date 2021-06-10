@@ -10,10 +10,7 @@ import com.eldarian.solvdelivery.staff.contact.WebOperator;
 import com.eldarian.solvdelivery.staff.delivery.AutoCourier;
 import com.eldarian.solvdelivery.staff.delivery.FootCourier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //temporary class, will be replaced with sql or smth.
 public class Database implements CityService {
@@ -28,7 +25,7 @@ public class Database implements CityService {
 
     private void initStaff() {
         managers = new ArrayList<>();
-        Manager manager = new Manager();
+        Manager manager = new Manager(this);
         manager.addCourier(new FootCourier());
         manager.addCourier(new AutoCourier());
         manager.addOperator(new PhoneOperator(manager));
@@ -46,9 +43,23 @@ public class Database implements CityService {
         streets.put("Kalinouski Alley", kalinouski);
         streets.put("Skaryna Prospect", skaryna);
 
-        var perezmen = new Restaurant(kalesnikava, 7, "Perezmen");
-        var freedomster = new Restaurant(kalinouski, 3, "Freedomster");
-        var meating = new Restaurant(skaryna, 9, "Meating");
+        List<Dish> perezmenMenu = new ArrayList<>();
+        perezmenMenu.add(new Dish("pizza"));
+        perezmenMenu.add(new Dish("burger"));
+        perezmenMenu.add(new Dish("cola"));
+
+        List<Dish> freedomsterMenu = new ArrayList<>();
+        freedomsterMenu.add(new Dish("domster"));
+        freedomsterMenu.add(new Dish("shawarma"));
+
+        List<Dish> meatingMenu = new ArrayList<>();
+        meatingMenu.add(new Dish("chicken barbeque"));
+        meatingMenu.add(new Dish("meatballs"));
+        meatingMenu.add(new Dish("pork kebab"));
+
+        var perezmen = new Restaurant(kalesnikava, 7, "Perezmen", perezmenMenu);
+        var freedomster = new Restaurant(kalinouski, 3, "Freedomster", freedomsterMenu);
+        var meating = new Restaurant(skaryna, 9, "Meating", meatingMenu);
 
         restaurants = new ArrayList<>();
         restaurants.add(perezmen);
@@ -59,6 +70,7 @@ public class Database implements CityService {
     @Override
     public Restaurant findRestaurant(String name) {
         for(Restaurant restaurant: restaurants) {
+
             if(restaurant.getName().equals(name)) return restaurant; //TODO check for errors
         }
         return null;
@@ -76,5 +88,23 @@ public class Database implements CityService {
 
     public Manager getManager() {
         return managers.get(0); //TODO replace to search of free manager
+    }
+
+    @Override
+    public List<String> getRestaurantNames() {
+        List<String> list = new ArrayList<>();
+        for (Restaurant restaurant: restaurants) {
+            list.add(restaurant.getName());
+        }
+        return list;
+    }
+
+    @Override
+    public List<String> getStreetNames() {
+        List<String> list = new ArrayList<>();
+        for (String street: streets.keySet()) {
+            list.add(street + ", " + streets.get(street).getBuildingCount() + " buildings");
+        }
+        return list;
     }
 }
