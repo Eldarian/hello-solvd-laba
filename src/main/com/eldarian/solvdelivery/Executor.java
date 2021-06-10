@@ -12,15 +12,6 @@ public class Executor {
 		Manager manager = db.getManager();
 		Client client = new Client(manager);
 
-
-		//Test street readability
-		Street street = db.findStreet("Kalesnikava Street");
-		System.out.println(street);
-		for (int i = 1; i <= street.getBuildingCount(); i++) {
-			System.out.println(db.findBuilding(street, i));
-		}
-		//end test
-
 		client.sendOrder();
 	}
 

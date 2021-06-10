@@ -21,6 +21,9 @@ public class Client {
 
     public void sendOrder() {
         Operator operator = contactOperator();
+        if(operator == null) {
+            System.out.println("No operator available. Please try again later");
+        }
         Order order = generateOrder(operator);
         confirmOrder(operator, order);
     }
@@ -29,6 +32,7 @@ public class Client {
         System.out.println("Welcome to DelivereD! [p]hone or [w]eb?");
         Scanner scanner = new Scanner(System.in);
         Operator operator = null;
+        int attempt = 0;
 
         do {
             String line = scanner.nextLine();
@@ -36,22 +40,31 @@ public class Client {
                 case "phone":
                 case "p":
                     operator = manager.getPhoneOperator();
-                    System.out.println("Called Phone Operator");
+                    if(operator == null) {
+                        System.out.println("There is no available phone operator or there is error");
+                        break;
+                    }
+                    System.out.println("Called Phone Operator " + operator.getName());
                     break;
                 case "web":
                 case "w":
                     operator = manager.getWebOperator();
-                    System.out.println("Called Web Operator");
+                    if(operator == null) {
+                        System.out.println("There is no available phone operator or there is error");
+                        break;
+                    }
+                    System.out.println("Called Web Operator " + operator.getName());
                     break;
                 default:
                     System.out.println("Incorrect type, try again. [p]hone or [w]eb?");
                     break;
             }
-        } while (operator == null);
+            attempt++;
+        } while (operator == null && attempt < 10);
         return operator;
     }
 
-    private Order generateOrder(Operator operator) { //QUESTION transfer to operator class?
+    private Order generateOrder(Operator operator) { //PENDING transfer to operator class?
         Order order = new Order();
         Scanner scanner = new Scanner(System.in);
 

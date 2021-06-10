@@ -19,10 +19,6 @@ public class Street {
         return name;
     }
 
-    public List<Building> getBuildings() {
-        return buildings;
-    }
-
     public int getBuildingCount() {
         return buildings.size();
     }
@@ -32,10 +28,6 @@ public class Street {
             return buildings.get(buildingNumber - 1);
         }
         return null;
-    }
-
-    public void setBuilding(Building building, int number) {
-        buildings.set(number - 1, building);
     }
 
     @Override

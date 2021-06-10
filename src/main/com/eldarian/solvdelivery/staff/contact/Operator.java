@@ -23,7 +23,7 @@ public abstract class Operator extends Employee {
         cityService = manager.getCityService();
     }
 
-    public Operator() {
+    public Operator() {  //TODO remove
         List<Operator> operators = new LinkedList<Operator>();
         operators.add(this);
         this.manager = new Manager(null, operators);

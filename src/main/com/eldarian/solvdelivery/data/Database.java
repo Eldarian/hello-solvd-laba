@@ -24,6 +24,7 @@ public class Database implements CityService {
         initStaff();
     }
 
+    //hardcoded method with data
     private void initStaff() {
         managers = new ArrayList<>();
         Manager manager = new Manager(this);
@@ -71,8 +72,7 @@ public class Database implements CityService {
     @Override
     public Restaurant findRestaurant(String name) {
         for(Restaurant restaurant: restaurants) {
-
-            if(restaurant.getName().equals(name)) return restaurant; //TODO check for errors
+            if(restaurant.getName().equals(name)) return restaurant;
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class Database implements CityService {
     }
 
     public Manager getManager() {
-        return managers.get(0); //TODO replace to search of free manager
+        return managers.get(0); //TODO replace to search of free manager or make single-manager system
     }
 
     @Override
