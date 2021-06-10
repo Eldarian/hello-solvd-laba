@@ -68,7 +68,7 @@ public class Client {
         Order order = new Order();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose cafe, type its name:");
+        System.out.println("Choose cafe, type its name or id:");
         operator.printRestaurants();
         Restaurant restaurant = operator.findRestaurant(scanner.nextLine()); //TODO NULL-check
         order.setRestaurant(restaurant);

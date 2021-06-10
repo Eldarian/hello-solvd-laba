@@ -87,6 +87,11 @@ public class Database implements CityService {
         return streets.get(name);
     }
 
+    @Override
+    public Restaurant findRestaurant(int id) {
+        return restaurants.get(id);
+    }
+
     public Manager getManager() {
         return managers.get(0); //TODO replace to search of free manager or make single-manager system
     }
@@ -95,7 +100,7 @@ public class Database implements CityService {
     public List<String> getRestaurantNames() {
         List<String> list = new ArrayList<>();
         for (Restaurant restaurant: restaurants) {
-            list.add(restaurant.getName());
+            list.add(restaurants.indexOf(restaurant) + ": " + restaurant.getName());
         }
         return list;
     }

@@ -49,8 +49,11 @@ public abstract class Operator extends Employee {
                 '}';
     }
 
-    public Restaurant findRestaurant(String name) {
-        return cityService.findRestaurant(name);
+    public Restaurant findRestaurant(String string) {
+        if(string.matches("\\d+")) {
+            return cityService.findRestaurant(Integer.parseInt(string));
+        }
+        return cityService.findRestaurant(string);
     }
 
     public Building findBuilding(Street street, int number) {
