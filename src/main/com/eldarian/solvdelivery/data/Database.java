@@ -11,17 +11,28 @@ import com.eldarian.solvdelivery.staff.contact.WebOperator;
 import com.eldarian.solvdelivery.staff.delivery.AutoCourier;
 import com.eldarian.solvdelivery.staff.delivery.FootCourier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //temporary class, will be replaced with sql or smth.
 public class Database implements CityService {
     List<Restaurant> restaurants;
     Map<String, Street> streets;
     List<Manager> managers;
+    private static Database instance;
 
-    public Database() {
+    private Database() {
         initCity();
         initStaff();
+    }
+
+    public static Database getInstance() {
+        if (instance == null) {
+            instance = new Database();
+        }
+        return instance;
     }
 
     //hardcoded method with data
