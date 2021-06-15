@@ -11,16 +11,15 @@ import com.eldarian.solvdelivery.staff.contact.WebOperator;
 import com.eldarian.solvdelivery.staff.delivery.AutoCourier;
 import com.eldarian.solvdelivery.staff.delivery.FootCourier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //temporary class, will be replaced with sql or smth.
 public class Database implements CityService {
-    List<Restaurant> restaurants;
-    Map<String, Street> streets;
-    List<Manager> managers;
+    private List<Manager> managers;
+    private List<Restaurant> restaurants;
+    private Map<String, Street> streets;
+    private Set<String> phones;
+
     private static Database instance;
 
     private Database() {
@@ -78,6 +77,25 @@ public class Database implements CityService {
         restaurants.add(perezmen);
         restaurants.add(freedomster);
         restaurants.add(meating);
+
+        System.out.println("=====Set======");
+        phones = new HashSet<>();
+        Collections.addAll(phones, "+37511111111 +37522222222 +37533333333 +37533333333".split(" "));
+        System.out.println(phones.contains("+37522222222"));
+        System.out.println(phones.contains("+37544444444"));
+        System.out.println(phones);
+
+        System.out.println("=====Queue=====");
+        Queue<Integer> sampleQueue = new LinkedList<>(); //LinkedList implements List, Queue, Dequeue.
+        sampleQueue.add(1);
+        sampleQueue.add(2);
+        sampleQueue.add(3);
+        sampleQueue.offer(4); //preferable for capacity-restricted queues
+        System.out.println("queue first element is " + sampleQueue.peek());
+        System.out.println("queue taken first element " + sampleQueue.poll());
+        System.out.println("now queue first element is " + sampleQueue.peek());
+
+
     }
 
     @Override
