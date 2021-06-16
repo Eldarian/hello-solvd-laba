@@ -20,9 +20,14 @@ public class Restaurant extends Building implements RestaurantService {
     }
 
     public void printMenu() {
-        for (Dish dish : menu) {
-            System.out.println(dish.getName());
+        if(menu != null && !menu.isEmpty()) {
+            for (Dish dish : menu) {
+                System.out.println(dish.getName());
+            }
+        } else {
+            System.out.println("This restaurant has no menu.");
         }
+
     }
 
     public String getName() {
@@ -37,11 +42,16 @@ public class Restaurant extends Building implements RestaurantService {
 
     @Override
     public Dish findDish(String name) {
-        for (Dish dish: menu) {
-            if(dish.getName().equals(name)) {
-                return dish;
+        if(menu != null && !menu.isEmpty()) {
+            for (Dish dish : menu) {
+                if (dish.getName().equals(name)) {
+                    return dish;
+                }
             }
+        } else {
+            System.out.println("Warning: No menu in restaurant");
         }
-        return null;
+        System.out.println("There is no dish with name " + name);
+        return null; //TODO Replace with special Null-Dish object
     }
 }
