@@ -6,9 +6,9 @@ import com.eldarian.solvdelivery.staff.contact.Operator;
 
 public class Client {
 
-    public void makeOrder() {
+    public void contactOperator() {
         Manager manager = Database.getInstance().getManager();
-        Operator operator = manager.contactOperator();
+        Operator operator = manager.provideOperator();
         if(operator == null) return;
         Order order = operator.generateOrder();
         operator.confirmOrder(order);

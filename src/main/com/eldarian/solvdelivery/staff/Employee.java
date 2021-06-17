@@ -14,7 +14,9 @@ public abstract class Employee {
 		this.name = "<noname>";
 	}
 
-	public abstract boolean handleOrder(Order order);
+	public abstract void handleOrder(Order order);
+
+	public abstract boolean canHandleOrder(Order order);
 	
 	private int generateId() {
 		return ++lastId;
