@@ -7,6 +7,7 @@ import com.eldarian.solvdelivery.staff.contact.Operator;
 import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
 import com.eldarian.solvdelivery.staff.contact.WebOperator;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,29 +35,38 @@ public class Manager extends Employee {
 
 
     @Override
-    public boolean handleOrder(Order order) {
-        for(Courier courier : couriers) {
-            if(courier.isFree()) {
-                courier.handleOrder(order);
-                return true;
+    public void handleOrder(Order order) {
+        if(couriers != null) {
+            for(Courier courier : couriers) {
+                if(courier.isFree()) {
+                    courier.handleOrder(order);
+                    return;
+                }
             }
+        } else {
+            System.out.println("Error: couriers list has not been initialized");
         }
-        return false;
+        System.out.println("No couriers available, order has been cancelled");
     }
 
-    public List<Courier> getCouriers() {
-        return couriers;
-    }
-
-    public List<Operator> getOperators() {
-        return operators;
+    @Override
+    public boolean canHandleOrder(Order order) {
+        if(couriers == null || couriers.isEmpty()) return false;
+        return true;
     }
 
     public void addOperator(Operator operator) {
+        if(operators == null) {
+            operators = new LinkedList<>();
+        }
         operators.add(operator);
+
     }
 
     public void addCourier(Courier courier) {
+        if(couriers == null) {
+            couriers = new LinkedList<>();
+        }
         couriers.add(courier);
     }
 
@@ -80,7 +90,7 @@ public class Manager extends Employee {
                 '}';
     }
 
-    public Operator contactOperator() {
+    public Operator provideOperator() {
         System.out.println("Welcome to DelivereD! [p]hone or [w]eb?");
         Scanner scanner = new Scanner(System.in);
         Operator operator = null;

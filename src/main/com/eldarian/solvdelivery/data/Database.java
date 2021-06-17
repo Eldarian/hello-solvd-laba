@@ -15,13 +15,23 @@ import java.util.*;
 
 //temporary class, will be replaced with sql or smth.
 public class Database implements CityService {
-    List<Restaurant> restaurants;
-    Map<String, Street> streets;
-    List<Manager> managers;
+    private List<Manager> managers;
+    private List<Restaurant> restaurants;
+    private Map<String, Street> streets;
+    private Set<String> phones;
 
-    public Database() {
+    private static Database instance;
+
+    private Database() {
         initCity();
         initStaff();
+    }
+
+    public static Database getInstance() {
+        if (instance == null) {
+            instance = new Database();
+        }
+        return instance;
     }
 
     //hardcoded method with data
@@ -38,12 +48,14 @@ public class Database implements CityService {
     //hardcoded method with data
     private void initCity() {
         streets = new HashMap();
-        var kalesnikava = new Street("Kalesnikava Street", 12);
-        var kalinouski = new Street("Kalinouski Alley", 8);
-        var skaryna = new Street("Skaryna Prospect", 15);
+        Street kalesnikava = new Street("Kalesnikava Street", 12);
+        Street kalinouski = new Street("Kalinouski Alley", 8);
+        Street skaryna = new Street("Skaryna Prospect", 15);
         streets.put("Kalesnikava Street", kalesnikava);
         streets.put("Kalinouski Alley", kalinouski);
         streets.put("Skaryna Prospect", skaryna);
+
+        streets = new HashMap<>(); //TODO remove
 
         List<Dish> perezmenMenu = new ArrayList<>();
         perezmenMenu.add(new Dish("pizza"));
@@ -59,14 +71,35 @@ public class Database implements CityService {
         meatingMenu.add(new Dish("meatballs"));
         meatingMenu.add(new Dish("pork kebab"));
 
-        var perezmen = new Restaurant(kalesnikava, 7, "Perezmen", perezmenMenu);
-        var freedomster = new Restaurant(kalinouski, 3, "Freedomster", freedomsterMenu);
-        var meating = new Restaurant(skaryna, 9, "Meating", meatingMenu);
+        Restaurant perezmen = new Restaurant(kalesnikava, 7, "Perezmen", perezmenMenu);
+        Restaurant freedomster = new Restaurant(kalinouski, 3, "Freedomster", freedomsterMenu);
+        Restaurant meating = new Restaurant(skaryna, 9, "Meating", meatingMenu);
+        Restaurant emptiness = new Restaurant(skaryna, 1, "Emply", null);
 
         restaurants = new ArrayList<>();
         restaurants.add(perezmen);
         restaurants.add(freedomster);
         restaurants.add(meating);
+        restaurants.add(emptiness);
+
+        System.out.println("=====Set======");
+        phones = new HashSet<>();
+        Collections.addAll(phones, "+37511111111 +37522222222 +37533333333 +37533333333".split(" "));
+        System.out.println(phones.contains("+37522222222"));
+        System.out.println(phones.contains("+37544444444"));
+        System.out.println(phones);
+
+        System.out.println("=====Queue=====");
+        Queue<Integer> sampleQueue = new LinkedList<>(); //LinkedList implements List, Queue, Dequeue.
+        sampleQueue.add(1);
+        sampleQueue.add(2);
+        sampleQueue.add(3);
+        sampleQueue.offer(4); //preferable for capacity-restricted queues
+        System.out.println("queue first element is " + sampleQueue.peek());
+        System.out.println("queue taken first element " + sampleQueue.poll());
+        System.out.println("now queue first element is " + sampleQueue.peek());
+
+
     }
 
     @Override
@@ -79,17 +112,52 @@ public class Database implements CityService {
 
     @Override
     public Building findBuilding(Street street, int buildingNumber) {
-        return street.getBuilding(buildingNumber);
+        Building building = null;
+        if(street == null) {
+            System.out.println("Error: Invalid street");
+        } else {
+            building = street.getBuilding(buildingNumber);
+        }
+        return building;
     }
 
     @Override
     public Street findStreet(String name) {
-        return streets.get(name);
+        if(streets == null) {
+            System.out.println("Error: Missing streets map");
+            return null;
+        }
+        if(streets.isEmpty()) {
+            System.out.println("Warning: There are no streets in database");
+            return null;
+        }
+        if(!streets.containsKey(name)) {
+            System.out.println("Invalid street name");
+            return null;
+        }
+        Street street = streets.get(name);
+        if(street == null) {
+            System.out.println("Error: Street is not initialized");
+        }
+        return street;
     }
 
     @Override
     public Restaurant findRestaurant(int id) {
-        return restaurants.get(id);
+        if(restaurants == null) {
+            System.out.println("Error: Missing restaurants list");
+            return null;
+        }
+        if(streets.isEmpty()) {
+            System.out.println("Warning: There are no restaurants in database");
+            return null;
+        }
+
+        Restaurant restaurant = restaurants.get(id);
+        if(restaurant == null) {
+            System.out.println("Error: Invalid restaurant name");
+        }
+        return restaurant;
     }
 
     public Manager getManager() {
@@ -102,14 +170,28 @@ public class Database implements CityService {
         for (Restaurant restaurant: restaurants) {
             list.add(restaurants.indexOf(restaurant) + ": " + restaurant.getName());
         }
+        if(list.isEmpty()) {
+            System.out.println("There are no restaurants in database");
+        }
         return list;
     }
 
     @Override
     public List<String> getStreetNames() {
+        if(streets == null) {
+            System.out.println("Error: Missing streets map");
+            return null;
+        }
+        if(streets.isEmpty()) {
+            System.out.println("Warning: There are no streets in database");
+            return null;
+        }
         List<String> list = new ArrayList<>();
         for (String street: streets.keySet()) {
             list.add(street + ", " + streets.get(street).getBuildingCount() + " buildings");
+        }
+        if(list.isEmpty()) {
+            System.out.println("There are no streets in database");
         }
         return list;
     }

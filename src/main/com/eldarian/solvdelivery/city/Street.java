@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Street {
-    List<Building> buildings;
+    private List<Building> buildings;
     private String name;
 
     public Street(String name, int buildingCount) {
@@ -20,13 +20,22 @@ public class Street {
     }
 
     public int getBuildingCount() {
-        return buildings.size();
+        if(buildings != null) { //QUESTION list of buildings initialized in constructor. Should I make null-check?
+            return buildings.size();
+        }
+        System.out.println("Error: Street is empty");
+        return 0;
     }
 
     public Building getBuilding(int buildingNumber) {
         if(buildingNumber <= buildings.size() && buildingNumber > 0) {
-            return buildings.get(buildingNumber - 1);
+            Building building = buildings.get(buildingNumber - 1);
+            if(building == null) {
+                System.out.println("Error: Building has not been initialized");
+            }
+            return building;
         }
+        System.out.println("Error: Invalid building number");
         return null;
     }
 

@@ -18,14 +18,15 @@ public abstract class Courier extends Employee {
 
 
 	@Override
-	public boolean handleOrder(Order order) {
-		if(isFree) {
-			this.order = order;
-			isFree = false;
-			deliverOrder(order);
-			return true;
-		}
-		return false;
+	public void handleOrder(Order order) {
+		isFree = false;
+		deliverOrder(order); //Later will take time
+		isFree = true;
+	}
+
+	@Override
+	public boolean canHandleOrder(Order order) {
+		return isFree;
 	}
 
 	public abstract void deliverOrder(Order order);

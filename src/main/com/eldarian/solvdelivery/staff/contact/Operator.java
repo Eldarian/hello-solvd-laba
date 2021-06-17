@@ -25,13 +25,17 @@ public abstract class Operator extends Employee {
     public abstract void handleClientData(String data);
 
     @Override
-    public boolean handleOrder(Order order) {
+    public void handleOrder(Order order) {
+        manager.handleOrder(order);
+    }
+
+    @Override
+    public boolean canHandleOrder(Order order) {
         if(order.isValid()) {
-            return manager.handleOrder(order);
+            return manager.canHandleOrder(order);
         }
         return false;
     }
-
 
     @Override
     public String toString() {
@@ -131,8 +135,9 @@ public abstract class Operator extends Employee {
             switch (line) {
                 case "yes":
                 case "y":
-                    if(handleOrder(order)) {
-                        System.out.println("Thanks for ordering!");
+                    if(canHandleOrder(order)) {
+                        System.out.println("Your order has been sent to delivery service");
+                        handleOrder(order);
                     } else {
                         System.out.println("Your order is incorrect.");
                     }
