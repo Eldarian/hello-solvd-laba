@@ -1,5 +1,6 @@
 package com.eldarian.solvdelivery.staff;
 
+import com.eldarian.solvdelivery.exceptions.NoEmployeeException;
 import com.eldarian.solvdelivery.ordering.Order;
 import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.delivery.Courier;
@@ -7,7 +8,6 @@ import com.eldarian.solvdelivery.staff.contact.Operator;
 import com.eldarian.solvdelivery.staff.contact.PhoneOperator;
 import com.eldarian.solvdelivery.staff.contact.WebOperator;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,17 +36,24 @@ public class Manager extends Employee {
 
     @Override
     public void handleOrder(Order order) {
-        if(couriers != null) {
-            for(Courier courier : couriers) {
-                if(courier.isFree()) {
-                    courier.handleOrder(order);
-                    return;
+        try {
+            if(couriers != null) {
+                for(Courier courier : couriers) {
+                    if(courier.isFree()) {
+                        courier.handleOrder(order);
+                        return;
+                    }
                 }
+            } else {
+                throw new NoEmployeeException("Error: couriers list has not been initialized");
             }
-        } else {
-            System.out.println("Error: couriers list has not been initialized");
+            throw new NoEmployeeException("No couriers available");
+        } catch (NoEmployeeException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Order has been cancelled");
         }
-        System.out.println("No couriers available, order has been cancelled");
+
     }
 
     @Override
@@ -70,12 +77,28 @@ public class Manager extends Employee {
         couriers.add(courier);
     }
 
-    public Operator getWebOperator() {
-        return new WebOperator(this); //TODO find WebOperator in list
+    public Operator getWebOperator() throws NoEmployeeException {
+        if(operators == null || operators.isEmpty()) {
+            throw new NoEmployeeException("Error with operator list");
+        }
+        for(Operator operator : operators) {
+            if(operator instanceof WebOperator) {
+                return operator;
+            }
+        }
+        throw new NoEmployeeException("No web operators available");
     }
 
-    public Operator getPhoneOperator() {
-        return new PhoneOperator(this); //TODO find PhoneOperator in list
+    public Operator getPhoneOperator() throws NoEmployeeException {
+        if(operators == null || operators.isEmpty()) {
+            throw new NoEmployeeException("Error with operator list");
+        }
+        for(Operator operator : operators) {
+            if(operator instanceof PhoneOperator) {
+                return operator;
+            }
+        }
+        throw new NoEmployeeException("No phone operators available");
     }
 
     public CityService getCityService() {
@@ -101,7 +124,12 @@ public class Manager extends Employee {
             switch (line) {
                 case "phone":
                 case "p":
-                    operator = getPhoneOperator();
+                    try {
+                        operator = getPhoneOperator();
+                    } catch (NoEmployeeException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Try another type of operator");
+                    }
                     if(operator == null) {
                         System.out.println("There is no available phone operator or there is error");
                         break;
@@ -110,7 +138,13 @@ public class Manager extends Employee {
                     break;
                 case "web":
                 case "w":
-                    operator = getWebOperator();
+                    try {
+                        operator = getWebOperator();
+                    } catch (NoEmployeeException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Try another type of operator");
+                    }
+
                     if(operator == null) {
                         System.out.println("There is no available phone operator or there is error");
                         break;

@@ -16,6 +16,11 @@ public abstract class Courier extends Employee {
 		super();
 	}
 
+	public Courier(String name) {
+		super();
+		this.setName(name);
+	}
+
 
 	@Override
 	public void handleOrder(Order order) {
