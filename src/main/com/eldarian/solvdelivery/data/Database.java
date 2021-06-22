@@ -18,7 +18,6 @@ public class Database implements CityService {
     private List<Manager> managers;
     private List<Restaurant> restaurants;
     private Map<String, Street> streets;
-    private Set<String> phones;
 
     private static Database instance;
 
@@ -38,8 +37,8 @@ public class Database implements CityService {
     private void initStaff() {
         managers = new ArrayList<>();
         Manager manager = new Manager(this);
-        manager.addCourier(new FootCourier());
-        manager.addCourier(new AutoCourier());
+        manager.addCourier(new FootCourier("Benny"));
+        manager.addCourier(new AutoCourier("Jack"));
         manager.addOperator(new PhoneOperator(manager));
         manager.addOperator(new WebOperator(manager));
         managers.add(manager);
@@ -54,8 +53,6 @@ public class Database implements CityService {
         streets.put("Kalesnikava Street", kalesnikava);
         streets.put("Kalinouski Alley", kalinouski);
         streets.put("Skaryna Prospect", skaryna);
-
-        streets = new HashMap<>(); //TODO remove
 
         List<Dish> perezmenMenu = new ArrayList<>();
         perezmenMenu.add(new Dish("pizza"));
@@ -82,24 +79,6 @@ public class Database implements CityService {
         restaurants.add(meating);
         restaurants.add(emptiness);
 
-        System.out.println("=====Set======");
-        phones = new HashSet<>();
-        Collections.addAll(phones, "+37511111111 +37522222222 +37533333333 +37533333333".split(" "));
-        System.out.println(phones.contains("+37522222222"));
-        System.out.println(phones.contains("+37544444444"));
-        System.out.println(phones);
-
-        System.out.println("=====Queue=====");
-        Queue<Integer> sampleQueue = new LinkedList<>(); //LinkedList implements List, Queue, Dequeue.
-        sampleQueue.add(1);
-        sampleQueue.add(2);
-        sampleQueue.add(3);
-        sampleQueue.offer(4); //preferable for capacity-restricted queues
-        System.out.println("queue first element is " + sampleQueue.peek());
-        System.out.println("queue taken first element " + sampleQueue.poll());
-        System.out.println("now queue first element is " + sampleQueue.peek());
-
-
     }
 
     @Override
@@ -110,6 +89,23 @@ public class Database implements CityService {
         return null;
     }
 
+    @Override
+    public Restaurant findRestaurant(int id) {
+        if(restaurants == null) {
+            System.out.println("Error: Missing restaurants list");
+            return null;
+        }
+        if(streets.isEmpty()) {
+            System.out.println("Warning: There are no restaurants in database");
+            return null;
+        }
+
+        Restaurant restaurant = restaurants.get(id);
+        if(restaurant == null) {
+            System.out.println("Error: Invalid restaurant name");
+        }
+        return restaurant;
+    }
     @Override
     public Building findBuilding(Street street, int buildingNumber) {
         Building building = null;
@@ -142,24 +138,6 @@ public class Database implements CityService {
         return street;
     }
 
-    @Override
-    public Restaurant findRestaurant(int id) {
-        if(restaurants == null) {
-            System.out.println("Error: Missing restaurants list");
-            return null;
-        }
-        if(streets.isEmpty()) {
-            System.out.println("Warning: There are no restaurants in database");
-            return null;
-        }
-
-        Restaurant restaurant = restaurants.get(id);
-        if(restaurant == null) {
-            System.out.println("Error: Invalid restaurant name");
-        }
-        return restaurant;
-    }
-
     public Manager getManager() {
         return managers.get(0); //TODO replace to search of free manager or make single-manager system
     }
@@ -177,7 +155,7 @@ public class Database implements CityService {
     }
 
     @Override
-    public List<String> getStreetNames() {
+    public ArrayList<String> getStreetNames() {
         if(streets == null) {
             System.out.println("Error: Missing streets map");
             return null;
@@ -186,9 +164,9 @@ public class Database implements CityService {
             System.out.println("Warning: There are no streets in database");
             return null;
         }
-        List<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         for (String street: streets.keySet()) {
-            list.add(street + ", " + streets.get(street).getBuildingCount() + " buildings");
+            list.add(street);
         }
         if(list.isEmpty()) {
             System.out.println("There are no streets in database");

@@ -4,6 +4,14 @@ import com.eldarian.solvdelivery.ordering.Order;
 
 public class FootCourier extends Courier {
 
+    public FootCourier() {
+        super();
+    }
+
+    public FootCourier(String name) {
+        super(name);
+    }
+
     @Override
     public void deliverOrder(Order order) {
         System.out.println("Delivered by " + getName() + " by foot");

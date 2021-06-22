@@ -9,6 +9,10 @@ import com.eldarian.solvdelivery.services.CityService;
 import com.eldarian.solvdelivery.staff.Employee;
 import com.eldarian.solvdelivery.staff.Manager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Operator extends Employee {
@@ -56,8 +60,18 @@ public abstract class Operator extends Employee {
         return cityService.findBuilding(street, number);
     }
 
-    private Street findStreet(String name) {
-        return cityService.findStreet(name);
+    private Street findStreet(String string) {
+        if(string.matches("\\d+")) {
+            ArrayList<String> streetNames = cityService.getStreetNames();
+            int index = Integer.parseInt(string);
+            if(index >= 0 && index < streetNames.size()) {
+                return cityService.findStreet(streetNames.get(index));
+            } else {
+                return null;
+            }
+
+        }
+        return cityService.findStreet(string);
     }
 
     public Manager getManager() {
@@ -71,8 +85,9 @@ public abstract class Operator extends Employee {
     }
 
     private void printStreetNames() {
-        for (String streetName : cityService.getStreetNames()) {
-            System.out.println(streetName);
+        ArrayList<String> streetNames = cityService.getStreetNames();
+        for (int i = 0; i < streetNames.size(); i++) {
+            System.out.println(i + ": " + streetNames.get(i));
         }
     }
 
@@ -90,15 +105,23 @@ public abstract class Operator extends Employee {
     }
 
     private void chooseDish(Order order, Restaurant restaurant, int attempt) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose your dish:");
-        restaurant.printMenu();
-        Dish dish = restaurant.findDish(scanner.nextLine());
-        if(dish == null && attempt < 3) {
-            System.out.println("Wrong input, try again");
-            chooseDish(order, restaurant, ++attempt);
+        Dish dish = null;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Choose your dish:");
+            restaurant.printMenu();
+            dish = restaurant.findDish(reader.readLine());
+            order.setDish(dish);
+        } catch (IOException e) {
+            System.out.println("Exception in input system");
+            e.printStackTrace();
+        } finally {
+            if(dish == null && attempt < 3) {
+                System.out.println("Wrong input, try again");
+                chooseDish(order, restaurant, ++attempt);
+            }
         }
-        order.setDish(dish);
+
     }
 
     private Restaurant chooseRestaurant(Order order) {
@@ -113,7 +136,7 @@ public abstract class Operator extends Employee {
     private void chooseDestination(Order order) {
         Street street = chooseStreet();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your address (Building number):");
+        System.out.println("Enter your address (Building number) " + street.getBuildingCount() + " buildings total:");
         Building destination = findBuilding(street, scanner.nextInt());
         order.setDestination(destination);
     }

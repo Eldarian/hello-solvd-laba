@@ -9,6 +9,10 @@ public class AutoCourier extends Courier {
         super();
     }
 
+    public AutoCourier(String name) {
+        super(name);
+    }
+
     @Override
     public void deliverOrder(Order order) {
         System.out.println("Delivered by " + getName() + " by auto");
