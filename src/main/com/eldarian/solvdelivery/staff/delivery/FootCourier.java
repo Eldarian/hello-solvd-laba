@@ -14,7 +14,7 @@ public class FootCourier extends Courier {
 
     @Override
     public void deliverOrder(Order order) {
-        System.out.println("Delivered by " + getName() + " by foot");
+        System.out.println("An order " + order + " has been delivered by " + getName() + " by foot");
     }
 
     @Override

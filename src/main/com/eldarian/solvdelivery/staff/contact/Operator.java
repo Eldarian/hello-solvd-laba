@@ -12,8 +12,10 @@ import com.eldarian.solvdelivery.staff.Manager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public abstract class Operator extends Employee {
     private Manager manager;
@@ -106,8 +108,9 @@ public abstract class Operator extends Employee {
 
     private void chooseDish(Order order, Restaurant restaurant, int attempt) {
         Dish dish = null;
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Choose your dish:");
             restaurant.printMenu();
             dish = restaurant.findDish(reader.readLine());
@@ -116,6 +119,11 @@ public abstract class Operator extends Employee {
             System.out.println("Exception in input system");
             e.printStackTrace();
         } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if(dish == null && attempt < 3) {
                 System.out.println("Wrong input, try again");
                 chooseDish(order, restaurant, ++attempt);
