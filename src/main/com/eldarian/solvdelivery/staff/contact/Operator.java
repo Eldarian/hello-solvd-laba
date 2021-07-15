@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public abstract class Operator extends Employee {
     private Manager manager;
